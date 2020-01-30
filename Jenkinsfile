@@ -16,7 +16,7 @@ node {
   }
   
    stage('Maven-Test') {
-   sh label: '', script: 'mvn test'
+   sh label: '', script: 'mvn tests'
   }
   
    stage('Maven-Package') {
