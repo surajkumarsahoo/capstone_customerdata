@@ -2,6 +2,8 @@ version: '2'
 
 
 services:
-   build: . 
-   ports:
-      - '8082:8080'
+   bankdata:
+      image:bankdata-0.0.1-SNAPSHOT.war
+      build: . 
+      ports:
+         - '8082:8080'
