@@ -2,6 +2,7 @@ version: '2'
 
 
 services:
+   bankdata-0.0.1-SNAPSHOT:
     build: . 
     ports:
       - '8086:8080'
