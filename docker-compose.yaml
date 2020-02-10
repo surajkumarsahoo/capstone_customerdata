@@ -2,7 +2,7 @@ version: '2'
 
 
 services:
-    codingchallenegejan8:
+    web:
      build: . 
      ports:
-        - '8082:8080'
+        - '8083:8080'
