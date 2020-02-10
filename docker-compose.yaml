@@ -2,7 +2,7 @@ version: '2'
 
 
 services:
-    web:
-     build: . 
-     ports:
-        - '8083:8080'
+  bankdata:
+    build: . 
+    ports:
+      - '8087:8080'
