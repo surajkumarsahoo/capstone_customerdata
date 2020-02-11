@@ -5,4 +5,4 @@ services:
   bankdata:
     build: . 
     ports:
-      - '8087:8080'
+      - '8085:8080'
