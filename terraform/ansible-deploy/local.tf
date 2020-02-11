@@ -14,7 +14,6 @@ resource "aws_instance" "backend" {
   ami                    = "${var.ami-id}"
   instance_type          = "t2.micro"
   key_name               = "${var.key_name}"
-  private_key            = "${file(var.pvt_key)}"
   vpc_security_group_ids = ["${var.sg-id}"]
 
 }
