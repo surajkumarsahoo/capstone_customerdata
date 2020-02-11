@@ -3,7 +3,7 @@ variable "key_name" {
 }
 
 variable "pvt_key" {
-  default = "/root/.ssh/mykey"
+  default = "/root/.ssh/mykey.pem"
 }
 
 variable "sg-id" {
