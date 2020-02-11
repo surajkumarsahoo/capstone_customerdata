@@ -1,11 +1,15 @@
 variable "key_name" {
-  default = "301cap"
+  default = "keypair1"
 }
 
 variable "pvt_key" {
-  default = "/root/.ssh/capstone301"
+  default = "/root/.ssh/mykey"
 }
 
 variable "sg-id" {
-  default = "sg-0fba88e1e581d045a"
+  default = "sg-0154e36a86dd411b2"
+}
+
+variable "ami-id" {
+  default = "ami-0620d12a9cf777c87"
 }
