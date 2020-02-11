@@ -4,3 +4,5 @@ version: '2'
 services:
   bankdata:
     build: .
+    ports:
+      - '8087:8080'
