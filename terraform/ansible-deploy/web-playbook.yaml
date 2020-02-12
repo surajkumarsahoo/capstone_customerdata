@@ -1,14 +1,9 @@
 ---
 
-- hosts: all
+- hosts: devprod
   become: yes
   become_method: sudo
   tasks:
-  - name: Install Apache2 Packages 
-    apt:  name=apache2 state=present
-
-  - name: Start Apache Service
-    service: name=apache2 state=started enabled=true
 
   - name: Create Dir to Downlaod Tomcat. 
     file: path=/opt/SP/apps/tomcat state=directory
@@ -23,14 +18,11 @@
   - name: Extract Tomcat
     command: "tar zxf /opt/SP/apps/tomcat.tar.gz  -C /opt/SP/apps/tomcat --strip-components 1"
 
-  - name: Copy Index Page Files
-    copy: src=templates/apps dest=/var/www/html mode=0644
-
   - name: Remove ROOT folder initially
     command: rm -rf /opt/SP/apps/tomcat/webapps/ROOT
 
   - name: Copy Kalinga music store Project War Files
-    copy: src=templates/kalingamusic-0.0.1-SNAPSHOT.war dest=/opt/SP/apps/tomcat/webapps/ROOT.war mode=0644
+    copy: src=/root/.jenkins/workspace/dev_artifact/bankdata-0.0.1-SNAPSHOT.war dest=/opt/SP/apps/tomcat/webapps/ROOT.war mode=0644
     notify: 
     - Restart Tomcat
 
