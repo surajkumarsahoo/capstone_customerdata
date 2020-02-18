@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.mindtree</groupId>
 	<artifactId>bankdata</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>bankdata</name>
 	<description>Demo project for Spring Boot</description>
