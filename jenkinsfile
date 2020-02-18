@@ -1,0 +1,69 @@
+node {
+    try{
+  stage('Git-Checkout') {
+      
+   git branch: 'qa',url:'https://github.com/surajkumarsahoo/capstone_customerdata.git'
+  }
+    
+ def project_path="codingchallenegejan8/bankdata"
+ 
+ dir(project_path) {
+    
+  stage('Maven-Clean') {
+      
+   sh label: 'Clean', script: 'mvn clean'
+  }
+   stage('Maven-Compile') {
+      
+   sh label: 'Compile', script: 'mvn compile'
+  }
+  stage('sonarqube config'){
+      
+      withSonarQubeEnv('SonarQube') {
+            sh label: 'sonar analysis', script: 'mvn sonar:sonar'
+        }
+  }
+   stage('Quality Gate'){
+timeout(time: 5, unit: 'MINUTES') {
+               
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Pipeline aborted due to a quality gate failure: ${qg.status}"
+                    }
+               
+            }
+}
+  
+ 
+   stage('Maven install') {
+   sh label: 'adding dependency', script: 'mvn install'
+  }
+  
+   
+  stage('Jfrog Artifacory'){
+       def server= Artifactory.server 'Artifactory'
+                    def uploadartifact= """{
+                        "files": [{
+                        "pattern": "target/*.war",
+                        "target": "qa"}]
+                    }"""
+        server.upload(uploadartifact)
+  }
+ 
+ } 
+   stage('Docker-Stage-Deployment') {
+        sh 'docker build -t bankdata_qa:$BUILD_NUMBER .'
+sh 'docker run -d -p 8088:8080 --name bankdatacontainer_qa$BUILD_NUMBER bankdata_qa:$BUILD_NUMBER'
+   }
+   currentBuild.result='SUCCESS'
+  }
+    catch(err) {
+    currentBuild.result='FAILURE'
+}
+    finally {
+    mail to: 'Suraj.Sahoo@mindtree.com',
+      subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
+      body: "${env.BUILD_URL} has result ${currentBuild.result}"
+  } 
+
+}
