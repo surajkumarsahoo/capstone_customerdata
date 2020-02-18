@@ -23,7 +23,7 @@ public class BankController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping("/home")
+	@RequestMapping("/home2")
 	public String home() {
 		return "index";
 	}
